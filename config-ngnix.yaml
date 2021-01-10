@@ -1,20 +1,39 @@
-apiVersion  : apps/v1
-kind        : Deployment
+apiVersion : apps/v1
+kind: Deployment
 metadata:
-  name: my-web.deplyment
+  name: test-nginx
   labels:
-    app : my-nginx-application
-spec: 
+    app : test-nginx
+spec:
+  replicas: 3
   selector:
     matchLabels:
-      project: test
+      project: services
   template:
     metadata:
       labels:
-        project: test
+        project: services   # Service will look for those PODS Labels!!!
     spec:
       containers:
-        - name  : test-web
-          image : nginx:latest
+        - name : services-web
+          image: nginx:latest
           ports:
-            - containerPort: 80  
+            - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-single-container-service
+  labels:
+    env  : prod
+    owner: picha
+spec:
+  selector:
+    project: services    # Selecting PODS with those Labels
+  ports:
+    - name      : app-listener
+      protocol  : TCP
+      port      : 80  # Port on Load Balancer
+      targetPort: 80  # Port on POD
+  type: LoadBalancer
