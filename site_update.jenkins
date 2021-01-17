@@ -1,0 +1,24 @@
+#!groovy
+
+properties([disableConcurrentBuilds()]) #One build in one time
+
+pipeline {
+
+    agent {
+        label 'master'
+    }
+    options {
+        builsDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+        timestamps()
+    }
+    stages {
+        stage('create docker image') {
+            steps {
+                echo "===================== Start Building Image ======================="
+                dir ('content_repo') {
+                    sh 'docker build . '
+                }
+            }
+        }
+    }
+}
