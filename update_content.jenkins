@@ -14,7 +14,7 @@ pipeline {
         stage("create docker image") {
             steps {
                 echo "===================== Start Building Image ======================="
-                dir ('content_repo') {
+                dir ('content_repo/docker_conf') {
                     sh 'docker build . '
                 }
             }
