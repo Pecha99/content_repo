@@ -1,6 +1,6 @@
 #!groovy
 
-properties([disableConcurrentBuilds()]) #One build in one time
+properties([disableConcurrentBuilds()])
 
 pipeline {
 
