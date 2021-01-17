@@ -16,6 +16,7 @@ pipeline {
                 echo "===================== Start Building Image ======================="
                 dir ('docker_conf') {
                     sh 'docker build -t site-on-nginx . '
+                    sh 'docker run -d -p 80:80 site-on-nginx:latest'
                 }
             }
         }
