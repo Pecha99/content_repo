@@ -18,7 +18,7 @@ pipeline {
                 echo "================= Start build TEST APP =================="
                 dir ('docker_conf') {
                     sh 'docker build -t site-on-nginx:test . '
-                    sh 'docker run -d -- name nginx_test -p 1234:80 site-on-nginx:test'
+                    sh 'docker run -d -p 1234:80 site-on-nginx:test -nginx_test'
                 echo "================= Finish build TEST APP ================="
                 }
             }
