@@ -7,5 +7,5 @@ if cmp -s page_from_git.html page_from_container.html; then
 	echo Same
 else
 	echo Differ
-	exit
+	cat 123.txt
 fi
