@@ -17,8 +17,8 @@ pipeline {
             steps {
                 echo "================= Start build TEST APP =================="
                 dir ('docker_conf') {
-                    sh 'docker build -t site-on-nginx . '
-                    sh 'docker run -d -p 1234:80 site-on-nginx:latest'
+                    sh 'docker build -t site-on-nginx:test . '
+                    sh 'docker run -d -- name nginx_test -p 1234:80 site-on-nginx:test'
                 echo "================= Finish build TEST APP ================="
                 }
             }
@@ -27,8 +27,8 @@ pipeline {
         stage('Test application') {
             steps {
                 echo "================= Start test =================="
-
-                sh '/var/lib/jenkins/workspace/site_content_update/test_site_content'
+                sh 'chmod u+x /var/lib/jenkins/workspace/site_content_update/test_site_content.sh'
+                sh 'bash /var/lib/jenkins/workspace/site_content_update/test_site_content.sh'
 
                 echo "================= Finish test ================="
             }
@@ -38,7 +38,7 @@ pipeline {
             steps {
                 echo "===================== Start Building Image ======================="
                 sh 'docker container stop $(docker container ls -aq)'
-                sh 'docker container rm $(docker container ls -aq)                                                                                                                                                                                                                                                                         '
+                sh 'docker container rm $(docker container ls -aq)''                                                                                                                                                                                                                                                                         '
                 dir ('docker_conf') {
                     sh 'docker build -t site-on-nginx . '
                     sh 'docker run -d -p 80:80 site-on-nginx:latest'
