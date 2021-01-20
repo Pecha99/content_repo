@@ -3,12 +3,9 @@
 wget -O page_from_git.html https://raw.githubusercontent.com/Pecha99/content_repo/master/index.html
 wget -O page_from_container.html http://178.154.232.99:1234/content.html
 
-VAR1=curl page_from_git.html
-VAR2=curl page_from_container.html
-
-if [ "$VAR1" = "$VAR2" ]; then
-    echo "Test passed"
+if cmp -s page_from_git.html page_from_container.html; then
+	echo Same
 else
-    echo "Test Failed"
-    EXIT
+	echo Differ
+	exit
 fi
