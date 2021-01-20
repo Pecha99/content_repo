@@ -30,7 +30,7 @@ pipeline {
                 sh 'chmod u+x /var/lib/jenkins/workspace/site_content_update/test_site_content.sh'
                 sh 'bash /var/lib/jenkins/workspace/site_content_update/test_site_content.sh'
                 sh 'docker container stop nginx_test'
-                sh 'docker container rm nginxx_test'
+                sh 'docker container rm nginx_test'
                 echo "================= Finish test ================="
             }
         }
